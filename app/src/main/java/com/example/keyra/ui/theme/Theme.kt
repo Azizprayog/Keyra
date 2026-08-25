@@ -1,6 +1,5 @@
 package com.example.keyra.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -10,34 +9,23 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+// Warna kustom Keyra (sesuai Figma)
+private val KeyraDarkColorScheme = darkColorScheme(
+    primary = Color(0xFF528BEF),       // Biru terang tombol & border fokus
     onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    background = Color(0xFF0F1115),    // Background utama gelap
+    onBackground = Color.White,
+    surface = Color(0xFF334155),       // Warna kotak input / card slate
+    onSurface = Color.White
 )
 
 @Composable
 fun KeyraTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Ubah default dynamicColor jadi false supaya warna kustom kita tidak tertimpa tema HP/Material
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -45,9 +33,7 @@ fun KeyraTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> KeyraDarkColorScheme // Memakai skema warna kustom Keyra
     }
 
     MaterialTheme(
